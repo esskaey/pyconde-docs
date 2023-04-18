@@ -21,6 +21,8 @@ from functools import wraps
 ```
 3. Defining a decorator
 ```python
+import functools
+
 def hello(func):
  @functools.wraps(func)
  def wrapped(*args,**kwargs):
@@ -37,12 +39,15 @@ def add(a,b)
 4. Usecases
    1. Logging
    2. Caching
+   3. Checking pre-requisites before calling func
    
 #### Advanced Decorators
 
 - Decorators with arguments
 
 ```python
+from functools import wraps
+
 def say(text):
    def _say(func):
       @wraps(func)
@@ -70,10 +75,50 @@ def add(a,b):
    return a + b
 
 # result
+# add(5,4)
 # hello
 # bye
 # 9
 ```
 
 - Callable ?
+  -  implements dunder '__call__()'  
+  
+- using a decorator class
+
+  ```python
+  class Say:
+   def __init__(self,text):
+      self.text = text
+   
+   def __call__():
+      # place the say method code here 
+
+
+   @Say('Hello')
+   def add(a,b):
+      return a + b 
+   
+   # result for add(5,4) 
+   # Hello
+   # 9
+  ```
+#### Class Decorators
+
+- Basic setup
+
+  ```python
+  def mark(cls):
+      # do something ( inspect )
+      cls.new_attr = 100
+      return cls
+  
+  @mark
+  class A:
+   pass
+
+  # test
+  # A.new_attr
+  ```
+
 
